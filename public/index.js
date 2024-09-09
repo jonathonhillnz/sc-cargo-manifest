@@ -1,3 +1,27 @@
+const appVersion = '2.0.1'; // Update this version number when there are major changes
+
+function checkVersionAndClearStorage() {
+  const storedVersion = localStorage.getItem('appVersion');
+
+  if (storedVersion !== appVersion) {
+    // Clear all the localStorage except the version
+    localStorage.clear();
+    localStorage.setItem('appVersion', appVersion);
+    
+    // Show notification popup
+    showVersionChangePopup();
+  }
+}
+
+function showVersionChangePopup() {
+  const versionModal = document.getElementById('versionModal');
+  versionModal.style.display = 'flex'; // Show the modal
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  checkVersionAndClearStorage(); // Check version on page load
+});
+
 let jobCounter = localStorage.getItem('jobCounter') ? parseInt(localStorage.getItem('jobCounter')) : 1;
 
 function getCargoJobs() {
@@ -27,6 +51,7 @@ function populateTable() {
       <td>${job.source.join(', ')}</td>
       <td>${job.destination.join(', ')}</td>
       <td>${job.amount}</td>
+      <td>${job.type}</td>
       <td>${job.notes}</td>
       <td><input type="checkbox" ${job.pickedUp ? 'checked' : ''} onclick="togglePickedUp(${index})"></td>
       <td><input type="checkbox" ${job.delivered ? 'checked' : ''} onclick="toggleDelivered(${index})"></td>
@@ -83,6 +108,11 @@ function closeModal() {
   document.getElementById('addJobModal').style.display = 'none';
 }
 
+function closeVersionModal() {
+    const versionModal = document.getElementById('versionModal');
+    versionModal.style.display = 'none'; // Hide the modal
+  }
+
 function generateCargoDetails() {
   const pickupLocations = Array.from(document.querySelectorAll('#pickupLocation input:checked')).map(input => input.value);
   const deliveryLocations = Array.from(document.querySelectorAll('#deliveryLocation input:checked')).map(input => input.value);
@@ -94,9 +124,7 @@ function generateCargoDetails() {
     detailRow.innerHTML = `
       <h4>${pickup} (Pickups)</h4>
       <label for="pickupAmount_${pickup}">Amount:</label>
-      <input type="number" id="pickupAmount_${pickup}" min="1"><br>
-      <label for="pickupType_${pickup}">Type:</label>
-      <input type="text" id="pickupType_${pickup}"><br>
+      <input type="number" id="pickupAmount_${pickup}" min="1" placeholder="Leave empty to auto-fill"><br>
     `;
     cargoDetailsDiv.appendChild(detailRow);
   });
@@ -106,9 +134,7 @@ function generateCargoDetails() {
     detailRow.innerHTML = `
       <h4>${delivery} (Deliveries)</h4>
       <label for="deliveryAmount_${delivery}">Amount:</label>
-      <input type="number" id="deliveryAmount_${delivery}" min="1"><br>
-      <label for="deliveryType_${delivery}">Type:</label>
-      <input type="text" id="deliveryType_${delivery}"><br>
+      <input type="number" id="deliveryAmount_${delivery}" min="1" placeholder="Leave empty to auto-fill"><br>
     `;
     cargoDetailsDiv.appendChild(detailRow);
   });
@@ -117,22 +143,38 @@ function generateCargoDetails() {
 function addJob() {
   const pickupLocations = Array.from(document.querySelectorAll('#pickupLocation input:checked')).map(input => input.value);
   const deliveryLocations = Array.from(document.querySelectorAll('#deliveryLocation input:checked')).map(input => input.value);
-  
+  const cargoType = document.getElementById('cargoType').value;  // Get the cargo type
   const cargoJobs = getCargoJobs();
 
   pickupLocations.forEach(pickup => {
-    const pickupAmount = document.getElementById(`pickupAmount_${pickup}`).value;
-    const pickupType = document.getElementById(`pickupType_${pickup}`).value;
+    const pickupAmountInput = document.getElementById(`pickupAmount_${pickup}`);
+    let pickupAmount = pickupAmountInput.value;
 
     deliveryLocations.forEach(delivery => {
-      const deliveryAmount = document.getElementById(`deliveryAmount_${delivery}`).value;
-      const deliveryType = document.getElementById(`deliveryType_${delivery}`).value;
+      const deliveryAmountInput = document.getElementById(`deliveryAmount_${delivery}`);
+      let deliveryAmount = deliveryAmountInput.value;
+
+      let amount = 0;
+
+      console.log("pickupAmount: " + pickupAmount)
+      console.log("deliveryAmount: " + deliveryAmount)
+
+      // Calculate the pickup or delivery amount if one is missing
+      if (!pickupAmount && deliveryAmount) {
+        amount = deliveryAmount;
+        // pickupAmountInput.value = pickupAmount; // Update the UI for clarity
+      }
+      if (!deliveryAmount && pickupAmount) {
+        amount = pickupAmount;
+        // deliveryAmountInput.value = deliveryAmount; // Update the UI for clarity
+      }
 
       cargoJobs.push({
         id: jobCounter,
         source: [pickup],
         destination: [delivery],
-        amount: `${pickupAmount} of ${pickupType} -> ${deliveryAmount} of ${deliveryType}`,
+        amount: `${amount}`,  // Just the amount here
+        type: cargoType,  // Store cargo type separately
         notes: '',
         pickedUp: false,
         delivered: false
@@ -163,6 +205,33 @@ accordions.forEach(accordion => {
     }
   });
 });
+
+// Dark Mode Toggle
+const darkModeToggle = document.getElementById('darkModeToggle');
+const toggleLabel = document.getElementById('toggleLabel');
+
+function setDarkMode(enabled) {
+  if (enabled) {
+    document.body.classList.add('dark-mode');
+    toggleLabel.textContent = 'Dark Mode';
+    localStorage.setItem('darkMode', 'enabled');
+  } else {
+    document.body.classList.remove('dark-mode');
+    toggleLabel.textContent = 'Light Mode';
+    localStorage.setItem('darkMode', 'disabled');
+  }
+}
+
+darkModeToggle.addEventListener('change', function () {
+  setDarkMode(darkModeToggle.checked);
+});
+
+// Load dark mode preference from localStorage
+const darkModePreference = localStorage.getItem('darkMode');
+if (darkModePreference === 'enabled') {
+  darkModeToggle.checked = true;
+  setDarkMode(true);
+}
 
 const locations = [
   'ARC-L1', 'ARC-L2', 'ARC-L3', 'ARC-L4', 'ARC-L5',

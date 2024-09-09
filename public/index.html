@@ -3,14 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cargo Manifest</title>
+  <title>Star Citizen Cargo Manifest</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Cargo Manifest</h1>
+  <div class="header">
+    <h1>Star Citizen Cargo Manifest</h1>
+    <div class="dark-mode-container">
+      <span id="toggleLabel">Light Mode</span>
+      <label class="switch">
+        <input type="checkbox" id="darkModeToggle">
+        <span class="slider small round"></span>
+      </label>
+    </div>
+  </div>
 
   <button id="addJobButton">Add Job</button>
-  <label>
+  <label class="checkbox-label">
     <input type="checkbox" id="hideDelivered"> Hide Delivered Cargo
   </label>
   <button id="clearAllButton">Clear All Jobs</button>
@@ -22,6 +31,7 @@
         <th onclick="sortTable(0)">Cargo Source</th>
         <th onclick="sortTable(1)">Cargo Destination</th>
         <th onclick="sortTable(2)">Cargo Amount</th>
+        <th>Cargo Type</th> <!-- New Column for Cargo Type -->
         <th>Notes</th>
         <th>Picked Up</th>
         <th>Delivered</th>
@@ -49,7 +59,11 @@
         <div id="deliveryLocation" class="grid"></div>
       </div>
 
-      <!-- Cargo Details -->
+      <!-- Cargo Type and Details -->
+      <h3>Cargo Type</h3>
+      <label for="cargoType">Cargo Type:</label>
+      <input type="text" id="cargoType" placeholder="Enter cargo type">
+
       <h3>Cargo Details</h3>
       <div id="cargoDetails"></div><br>
 
@@ -57,6 +71,27 @@
       <button onclick="closeModal()">Close</button>
     </div>
   </div>
+
+  <!-- Usage Information Box -->
+  <div id="usageInfo" class="info-box">
+    <h3>How to Use This App</h3>
+    <p>
+      1. Click on the <strong>Add Job</strong> button to create a new cargo job.<br>
+      2. Fill in the cargo source, destination, and delivery details.<br>
+      3. Optionally, mark cargo as <strong>Picked Up</strong> or <strong>Delivered</strong> using the checkboxes in the table.<br>
+      4. Use the <strong>Clear All Jobs</strong> button to remove all cargo jobs from the list.<br>
+      5. The <strong>Hide Delivered Cargo</strong> checkbox allows you to filter out cargo that has already been delivered.
+    </p>
+  </div>
+
+  <!-- Version Change Notification Modal -->
+  <div id="versionModal" class="modal">
+    <div class="modal-content">
+      <h2>App Version Updated</h2>
+      <p>The app has been updated to version <span id="currentVersion"></span>. The local storage has been cleared to avoid conflicts with previous versions.</p>
+      <button onclick="closeVersionModal()">OK</button>
+    </div>
+  </div>  
 
   <script src="index.js"></script>
 </body>
