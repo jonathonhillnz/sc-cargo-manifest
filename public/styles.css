@@ -1,0 +1,185 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Body Styling */
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #e0e0e0; /* Slightly darker grey background */
+    color: #333;
+    padding: 20px;
+  }
+  
+  h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #4a4a4a;
+  }
+  
+  /* Modal Styling */
+  .modal {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 500px;
+    max-height: 80vh;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Accordion Styling */
+  .accordion {
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 16px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+  }
+  
+  .accordion.active, .accordion:hover {
+    background-color: #0056b3;
+  }
+  
+  .accordion-content {
+    padding: 10px;
+    display: none;
+    overflow: auto;
+    max-height: 200px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  
+  /* Two Column Layout */
+  .accordion-content .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  
+  .accordion-content label {
+    display: flex;
+    align-items: center;
+    gap: 0px;
+    margin-bottom: 8px;
+    font-weight: 400;
+    cursor: pointer;
+  }
+  
+  .accordion-content input[type="checkbox"] {
+    margin-right: 4px;
+  }
+  
+  /* Buttons */
+  .modal button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-right: 5px;
+  }
+  
+  .modal button:hover {
+    background-color: #0056b3;
+  }
+  
+  button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  /* Table Styling */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff; /* White background for contrast */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  thead {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  th, td {
+    padding: 12px 15px;
+    text-align: left;
+  }
+  
+  th {
+    cursor: pointer;
+    font-weight: 600;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f8f9fa;
+  }
+  
+  tr:hover {
+    background-color: #e9ecef;
+  }
+  
+  button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .modal-content {
+      width: 90%;
+    }
+  
+    table {
+      font-size: 14px;
+    }
+  
+    th, td {
+      padding: 10px;
+    }
+  
+    button {
+      padding: 8px 16px;
+    }
+  }
+  

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cargo Manifest</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Cargo Manifest</h1>
+
+  <button id="addJobButton">Add Job</button>
+  <label>
+    <input type="checkbox" id="hideDelivered"> Hide Delivered Cargo
+  </label>
+  <button id="clearAllButton">Clear All Jobs</button>
+
+  <table id="cargoTable">
+    <thead>
+      <tr>
+        <th>Job ID</th>
+        <th onclick="sortTable(0)">Cargo Source</th>
+        <th onclick="sortTable(1)">Cargo Destination</th>
+        <th onclick="sortTable(2)">Cargo Amount</th>
+        <th>Notes</th>
+        <th>Picked Up</th>
+        <th>Delivered</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="cargoBody">
+    </tbody>
+  </table>
+
+  <!-- Add Job Popup -->
+  <div id="addJobModal" class="modal">
+    <div class="modal-content">
+      <h2>Add New Cargo Job</h2>
+
+      <!-- Pickups Accordion -->
+      <button class="accordion">Pickups</button>
+      <div class="accordion-content">
+        <div id="pickupLocation" class="grid"></div>
+      </div>
+
+      <!-- Deliveries Accordion -->
+      <button class="accordion">Deliveries</button>
+      <div class="accordion-content">
+        <div id="deliveryLocation" class="grid"></div>
+      </div>
+
+      <!-- Cargo Details -->
+      <h3>Cargo Details</h3>
+      <div id="cargoDetails"></div><br>
+
+      <button onclick="addJob()">Add Job</button>
+      <button onclick="closeModal()">Close</button>
+    </div>
+  </div>
+
+  <script src="index.js"></script>
+</body>
+</html>
