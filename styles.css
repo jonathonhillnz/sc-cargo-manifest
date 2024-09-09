@@ -260,6 +260,10 @@
   
   .checkbox-label {
     margin-right: 10px;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 3px; /* Adjust the gap to control spacing between the checkbox and text */
   }
   
   /* Responsive Design */
