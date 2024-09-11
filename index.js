@@ -41,6 +41,9 @@ function populateTable() {
   const cargoBody = document.getElementById('cargoBody');
   cargoBody.innerHTML = '';
 
+  const destinationTotals = {}; // To store the total cargo per destination
+  let overallTotal = 0; // To store the total cargo amount overall
+
   cargoJobs.forEach((job, index) => {
     if (document.getElementById('hideDelivered').checked && job.delivered) return;
 
@@ -52,12 +55,40 @@ function populateTable() {
       <td>${job.destination.join(', ')}</td>
       <td>${job.amount}</td>
       <td>${job.type}</td>
-      <td>${job.notes || ''}</td>  <!-- Display notes here -->
+      <td>${job.notes || ''}</td>
       <td><input type="checkbox" ${job.pickedUp ? 'checked' : ''} onclick="togglePickedUp(${index})"></td>
       <td><input type="checkbox" ${job.delivered ? 'checked' : ''} onclick="toggleDelivered(${index})"></td>
       <td><button onclick="deleteJob(${index})">Delete</button></td>
     `;
     cargoBody.appendChild(row);
+
+    // Calculate totals
+    const destination = job.destination.join(', ');
+    const amount = parseFloat(job.amount) || 0; // Ensure amount is a number
+
+    if (!destinationTotals[destination]) {
+      destinationTotals[destination] = 0;
+    }
+    destinationTotals[destination] += amount;
+    overallTotal += amount;
+  });
+
+  // Add totals row
+  const totalsRow = document.createElement('tr');
+  totalsRow.innerHTML = `
+    <td colspan="3"><strong>Total Cargo Overall:</strong></td>
+    <td colspan="6"><strong>${overallTotal}</strong></td>
+  `;
+  cargoBody.appendChild(totalsRow);
+
+  // Add destination-specific totals
+  Object.keys(destinationTotals).forEach(destination => {
+    const totalRow = document.createElement('tr');
+    totalRow.innerHTML = `
+      <td colspan="3"><strong>Total for ${destination}:</strong></td>
+      <td colspan="6"><strong>${destinationTotals[destination]}</strong></td>
+    `;
+    cargoBody.appendChild(totalRow);
   });
 }
 
