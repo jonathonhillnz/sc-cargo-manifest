@@ -19,7 +19,15 @@ function showVersionChangePopup() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  const hideDeliveredPreference = localStorage.getItem('hideDelivered');
+  if (hideDeliveredPreference === 'true') {
+    document.getElementById('hideDelivered').checked = true;
+  } else {
+    document.getElementById('hideDelivered').checked = false;
+  }
+  
   checkVersionAndClearStorage(); // Check version on page load
+  populateTable(); // Populate the table based on the loaded preference
 });
 
 let jobCounter = localStorage.getItem('jobCounter') ? parseInt(localStorage.getItem('jobCounter')) : 1;
@@ -237,7 +245,12 @@ function addJob() {
 }
 
 document.getElementById('clearAllButton').addEventListener('click', clearAllJobs);
-document.getElementById('hideDelivered').addEventListener('change', populateTable);
+document.getElementById('hideDelivered').addEventListener('change', function () {
+  const hideDelivered = document.getElementById('hideDelivered').checked;
+  localStorage.setItem('hideDelivered', hideDelivered ? 'true' : 'false'); // Save preference in localStorage
+  populateTable(); // Re-populate the table based on the new preference
+});
+
 
 // Accordion toggle logic
 const accordions = document.querySelectorAll(".accordion");
