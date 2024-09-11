@@ -101,6 +101,7 @@ function clearAllJobs() {
 }
 
 document.getElementById('addJobButton').addEventListener('click', () => {
+  clearJobForm(); // Clear the form when opening the modal
   document.getElementById('addJobModal').style.display = 'flex';
 });
 
@@ -138,6 +139,16 @@ function generateCargoDetails() {
     `;
     cargoDetailsDiv.appendChild(detailRow);
   });
+}
+
+function clearJobForm() {
+  document.getElementById('cargoType').value = ''; // Clear cargo type input
+  document.getElementById('cargoDetails').innerHTML = ''; // Clear generated cargo details
+  const pickupCheckboxes = document.querySelectorAll('#pickupLocation input[type="checkbox"]');
+  const deliveryCheckboxes = document.querySelectorAll('#deliveryLocation input[type="checkbox"]');
+  
+  pickupCheckboxes.forEach(checkbox => checkbox.checked = false); // Uncheck all pickup locations
+  deliveryCheckboxes.forEach(checkbox => checkbox.checked = false); // Uncheck all delivery locations
 }
 
 function addJob() {
@@ -187,6 +198,9 @@ function addJob() {
   saveJobCounter();
   populateTable();
   closeModal();
+
+  // Clear the form after the job is added
+  clearJobForm();
 }
 
 document.getElementById('clearAllButton').addEventListener('click', clearAllJobs);
