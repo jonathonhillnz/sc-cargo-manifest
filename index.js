@@ -52,7 +52,7 @@ function populateTable() {
       <td>${job.destination.join(', ')}</td>
       <td>${job.amount}</td>
       <td>${job.type}</td>
-      <td>${job.notes}</td>
+      <td>${job.notes || ''}</td>  <!-- Display notes here -->
       <td><input type="checkbox" ${job.pickedUp ? 'checked' : ''} onclick="togglePickedUp(${index})"></td>
       <td><input type="checkbox" ${job.delivered ? 'checked' : ''} onclick="toggleDelivered(${index})"></td>
       <td><button onclick="deleteJob(${index})">Delete</button></td>
@@ -144,6 +144,7 @@ function generateCargoDetails() {
 function clearJobForm() {
   document.getElementById('cargoType').value = ''; // Clear cargo type input
   document.getElementById('cargoDetails').innerHTML = ''; // Clear generated cargo details
+  document.getElementById('jobNotes').value = ''; // Clear notes field
   const pickupCheckboxes = document.querySelectorAll('#pickupLocation input[type="checkbox"]');
   const deliveryCheckboxes = document.querySelectorAll('#deliveryLocation input[type="checkbox"]');
   
@@ -155,6 +156,7 @@ function addJob() {
   const pickupLocations = Array.from(document.querySelectorAll('#pickupLocation input:checked')).map(input => input.value);
   const deliveryLocations = Array.from(document.querySelectorAll('#deliveryLocation input:checked')).map(input => input.value);
   const cargoType = document.getElementById('cargoType').value;  // Get the cargo type
+  const notes = document.getElementById('jobNotes').value; // Get the notes value
   const cargoJobs = getCargoJobs();
 
   pickupLocations.forEach(pickup => {
@@ -186,7 +188,7 @@ function addJob() {
         destination: [delivery],
         amount: `${amount}`,  // Just the amount here
         type: cargoType,  // Store cargo type separately
-        notes: '',
+        notes: notes,  // Add notes here
         pickedUp: false,
         delivered: false
       });
