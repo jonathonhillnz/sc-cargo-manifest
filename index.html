@@ -29,8 +29,8 @@
     <thead>
       <tr>
         <th>Job ID</th>
-        <th onclick="sortTable(0)">Cargo Source</th>
-        <th onclick="sortTable(1)">Cargo Destination</th>
+        <th onclick="sortTable(0)">Cargo Source <span class="sortable-arrow">↕</span></th>
+        <th onclick="sortTable(1)">Cargo Destination <span class="sortable-arrow">↕</span></th>
         <th onclick="sortTable(2)">Cargo Amount</th>
         <th>Cargo Type</th> <!-- New Column for Cargo Type -->
         <th>Notes</th>
@@ -84,8 +84,9 @@
       1. Click on the <strong>Add Job</strong> button to create a new cargo job.<br>
       2. Fill in the cargo source, destination, and delivery details.<br>
       3. Optionally, mark cargo as <strong>Picked Up</strong> or <strong>Delivered</strong> using the checkboxes in the table.<br>
-      4. Use the <strong>Clear All Jobs</strong> button to remove all cargo jobs from the list.<br>
-      5. The <strong>Hide Delivered Cargo</strong> checkbox allows you to filter out cargo that has already been delivered.
+      4. Click the <strong>Cargo Source</strong> or <strong>Cargo Destination</strong> headers to sort the table by these columns.<br> <!-- Added sorting explanation -->
+      5. Use the <strong>Clear All Jobs</strong> button to remove all cargo jobs from the list.<br>
+      6. The <strong>Hide Delivered Cargo</strong> checkbox allows you to filter out cargo that has already been delivered.
       <br>
       <br>
       </p>

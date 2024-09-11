@@ -229,6 +229,22 @@
     padding: 12px 15px;
     text-align: left;
   }
+
+  th {
+    cursor: pointer;
+    text-align: left;
+    position: relative;
+  }
+  
+  .sortable-arrow {
+    font-size: 12px;
+    margin-left: 5px;
+    color: var(--text-color);
+  }
+  
+  th:hover {
+    text-decoration: underline; /* Add underline on hover to indicate it's clickable */
+  }  
   
   button {
     background-color: var(--button-bg);
