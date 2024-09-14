@@ -295,12 +295,19 @@ if (darkModePreference === 'enabled') {
 
 const locations = [
   'ARC-L1', 'ARC-L2', 'ARC-L3', 'ARC-L4', 'ARC-L5',
-  'Area18', 'Baijini Point', 'CRU-L1', 'CRU-L2', 'CRU-L3', 
-  'CRU-L4', 'CRU-L5', 'Orison', 'Seraphim', 'HUR-L1', 
-  'HUR-L2', 'HUR-L3', 'HUR-L4', 'HUR-L5', 'Lorville', 
-  'Everus Harbour', 'MIC-L1', 'MIC-L2', 'MIC-L3', 'MIC-L4', 
-  'MIC-L5', 'New Babbage', 'Port Tressler', 'Magnus Gateway', 
-  'Pyro Gateway', 'Terra Gateway'
+  'Area18', 'Baijini Point', 
+
+  'CRU-L1', 'CRU-L2', 'CRU-L3', 
+  'CRU-L4', 'CRU-L5', 'Orison', 'Seraphim', 
+
+  'HUR-L1', 'HUR-L2', 'HUR-L3', 'HUR-L4', 'HUR-L5', 'Lorville', 'Everus Harbour', "Orinth",
+  "HDMS-Oparei", "HDMS-Edmond", "HDMS-Pinewood", "HDMS-Hadley", "HDMS-Thedus", "HDMS-Stanhope", 
+  "HDPC-Cassillo", "HDPC-Farnesway", "S1DC06",  "Greycat Complex-B",  "Dupree Manufacturing", "Sakura Magnolia",
+
+  'MIC-L1', 'MIC-L2', 'MIC-L3', 'MIC-L4', 
+  'MIC-L5', 'New Babbage', 'Port Tressler', 
+  
+  'Magnus Gateway', 'Pyro Gateway', 'Terra Gateway'
 ];
 
 const pickupLocationDiv = document.getElementById('pickupLocation');
